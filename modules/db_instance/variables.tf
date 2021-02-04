@@ -41,10 +41,9 @@ variable "admin_password" {
   type        = string
 }
 
-variable "vpc_security_group_ids" {
-  description = "List of VPC security groups to associate"
-  type        = list(string)
-  default     = []
+variable "associate_security_group" {
+  description = "Associated security groups to associate in the same VPC."
+  type        = string
 }
 
 variable "db_subnet_group_name" {
