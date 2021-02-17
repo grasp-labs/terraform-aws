@@ -4,7 +4,7 @@ data "aws_availability_zones" "available" {
 
 resource "aws_db_subnet_group" "default" {
   subnet_ids = var.subnet_ids
-  tags = var.tags
+  tags       = var.tags
 }
 
 resource "aws_security_group" "_" {
@@ -14,13 +14,13 @@ resource "aws_security_group" "_" {
 }
 
 resource "aws_security_group_rule" "ingress_security_group" {
-  description = "Allow traffic from associate security group."
-  from_port         = 5432
-  protocol          = "tcp"
+  description              = "Allow traffic from associate security group."
+  from_port                = 5432
+  protocol                 = "tcp"
   source_security_group_id = var.associate_security_group
-  security_group_id = aws_security_group._.id
-  to_port           = 5432
-  type              = "ingress"
+  security_group_id        = aws_security_group._.id
+  to_port                  = 5432
+  type                     = "ingress"
 }
 
 resource "aws_db_instance" "this" {
@@ -33,6 +33,8 @@ resource "aws_db_instance" "this" {
   name           = var.db_name
   username       = var.admin_user
   password       = var.admin_password
+
+  skip_final_snapshot = true
 
   vpc_security_group_ids = [
     aws_security_group._.id]
