@@ -2,13 +2,7 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-locals {
-  security_group_name = "sg-${var.rds_identifier}"
-  subnet_group_name = "subnet-group-${var.rds_identifier}"
-}
-
 resource "aws_db_subnet_group" "default" {
-  name       = local.subnet_group_name
   subnet_ids = var.subnet_ids
   tags = var.tags
 }
@@ -16,7 +10,6 @@ resource "aws_db_subnet_group" "default" {
 resource "aws_security_group" "_" {
   vpc_id      = var.vpc_id
   description = "Allow inbound traffic from the security groups."
-  name        = local.security_group_name
   tags        = var.tags
 }
 
