@@ -24,7 +24,8 @@ resource "aws_security_group_rule" "ingress_security_group" {
   description = "Allow traffic from associate security group."
   from_port         = 5432
   protocol          = "tcp"
-  security_group_id = var.associate_security_group
+  source_security_group_id = var.associate_security_group
+  security_group_id = aws_security_group._.id
   to_port           = 5432
   type              = "ingress"
 }
