@@ -3,6 +3,12 @@ variable "vpc_id" {
   type        = string
 }
 
+variable "num_subnets" {
+  description = "The number of subnets in current VPC."
+  type        = number
+  default     = 0
+}
+
 variable "rds_identifier" {
   description = "The name of the RDS instance."
   type        = string
@@ -40,10 +46,9 @@ variable "associate_security_group" {
   type        = string
 }
 
-variable "db_subnet_group_name" {
-  description = "Name of DB subnet group. DB instance will be created in the VPC associated with the DB subnet group. If unspecified, will be created in the default VPC"
-  type        = string
-  default     = ""
+variable "subnet_ids" {
+  description = "List of subnets for the DB"
+  type        = list(string)
 }
 
 variable "tags" {
