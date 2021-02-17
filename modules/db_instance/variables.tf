@@ -3,12 +3,6 @@ variable "vpc_id" {
   type        = string
 }
 
-variable "num_subnets" {
-  description = "The number of subnets in current VPC."
-  type        = number
-  default     = 0
-}
-
 variable "rds_identifier" {
   description = "The name of the RDS instance."
   type        = string
