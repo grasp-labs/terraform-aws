@@ -34,6 +34,8 @@ resource "aws_db_instance" "this" {
   username       = var.admin_user
   password       = var.admin_password
 
+  publicly_accessible =  var.publicly_accessbile
+
   vpc_security_group_ids = [
     aws_security_group._.id]
   db_subnet_group_name   = aws_db_subnet_group.default.name

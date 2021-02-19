@@ -56,3 +56,9 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "publicly_accessible" {
+  type        = bool
+  description = "Determines if database can be publicly available"
+  default     = true 
+}}
