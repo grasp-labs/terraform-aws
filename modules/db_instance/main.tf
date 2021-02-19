@@ -34,7 +34,7 @@ resource "aws_db_instance" "this" {
   username       = var.admin_user
   password       = var.admin_password
 
-  publicly_accessible =  var.publicly_accessbile
+  publicly_accessible =  var.publicly_accessible
   skip_final_snapshot = true
 
   vpc_security_group_ids = [
