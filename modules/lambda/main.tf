@@ -3,6 +3,7 @@ data "aws_caller_identity" "current" {}
 
 locals {
   full_name = "${var.name}-${var.env}"
+  environment_map = var.env_vars == null ? [] : [var.env_vars]
 }
 
 # This is the IAM policy for letting lambda assume roles.
@@ -35,7 +36,7 @@ data "aws_iam_policy_document" "logs_policy_doc" {
     ]
 
     resources = [
-      "arn:aws:logs:${data.aws_region}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${local.full_name}:*"]
+      "arn:aws:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/lambda/${local.full_name}:*"]
   }
 }
 
@@ -81,8 +82,11 @@ resource "aws_lambda_function" "main" {
   memory_size   = var.memory_size
   timeout       = var.timeout
 
-  environment {
-    variables = var.env_vars
+  dynamic "environment" {
+    for_each = local.environment_map
+    content {
+      variables = environment.value
+    }
   }
 
   tags = var.tags

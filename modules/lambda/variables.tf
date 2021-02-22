@@ -12,7 +12,7 @@ variable "env" {
 variable "runtime" {
   description = "Lambda runtime type"
   type        = string
-  default     = "Python 3.7"
+  default     = "python3.7"
 }
 
 variable "s3_bucket" {
@@ -40,7 +40,7 @@ variable "timeout" {
 variable "subnet_ids" {
   default     = []
   description = "List of subnet IDs for Lambda VPC config (leave empty if no VPC)"
-  type        = list
+  type        = list(string)
 }
 
 variable "security_group_ids" {
@@ -57,13 +57,14 @@ variable "handler" {
 
 variable "iam_policy_arn" {
   description = "IAM Policy to be attached to role"
-  type = "list"
+  type = list
+  default = []
 }
 
 variable "env_vars" {
   description = "Map of environment variables for Lambda function"
   type        = map
-  default     = {}
+  default     = null
 }
 
 variable "tags" {
