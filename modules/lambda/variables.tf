@@ -57,13 +57,19 @@ variable "handler" {
 
 variable "iam_policy_arn" {
   description = "IAM Policy to be attached to role"
-  type = list
-  default = []
+  type        = list
+  default     = []
 }
 
 variable "env_vars" {
   description = "Map of environment variables for Lambda function"
   type        = map
+  default     = null
+}
+
+variable "sqs_event" {
+  description = "SQS queue which triggers the lambda function"
+  type        = string
   default     = null
 }
 

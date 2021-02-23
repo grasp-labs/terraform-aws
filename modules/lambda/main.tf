@@ -96,3 +96,9 @@ resource "aws_lambda_function" "main" {
     security_group_ids = var.security_group_ids
   }
 }
+
+resource "aws_lambda_event_source_mapping" "_" {
+  count = var.sqs_event == null ? 0 : 1
+  event_source_arn = var.sqs_event
+  function_name    = aws_lambda_function.main.arn
+}
