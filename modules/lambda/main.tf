@@ -101,13 +101,13 @@ resource "aws_lambda_function" "main" {
 # Hook lambda with sqs event.
 
 resource "aws_lambda_event_source_mapping" "_" {
-  count            = var.sqs_event == null ? 0 : 1
-  event_source_arn = var.sqs_event
+  count            = var.sqs_trigger_enabled ? 1 : 0
+  event_source_arn = var.sqs_arn
   function_name    = aws_lambda_function.main.arn
 }
 
 data "aws_iam_policy_document" "stream_policy_document" {
-  count = var.sqs_event == null ? 0 : 1
+  count = var.sqs_trigger_enabled ? 1 : 0
 
   statement {
     actions = [
@@ -120,20 +120,20 @@ data "aws_iam_policy_document" "stream_policy_document" {
     ]
 
     resources = [
-      var.sqs_event
+      var.sqs_arn
     ]
   }
 }
 
 resource "aws_iam_policy" "stream_policy" {
-  count       = var.sqs_event == null ? 0 : 1
+  count       = var.sqs_trigger_enabled ? 1 : 0
   name        = "${var.name}-queue-poller"
   description = "Gives permission to poll a SQS queue to ${var.name}."
   policy      = data.aws_iam_policy_document.stream_policy_document[count.index].json
 }
 
 resource "aws_iam_role_policy_attachment" "stream_policy_attachment" {
-  count      = var.sqs_event == null ? 0 : 1
+  count      = var.sqs_trigger_enabled ? 1 : 0
   role       = aws_iam_role.main.name
   policy_arn = aws_iam_policy.stream_policy[count.index].arn
 }

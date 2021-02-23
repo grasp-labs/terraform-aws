@@ -67,7 +67,13 @@ variable "env_vars" {
   default     = null
 }
 
-variable "sqs_event" {
+variable "sqs_trigger_enabled" {
+  description = "Enable SQS trigger"
+  type        = bool
+  default     = false
+}
+
+variable "sqs_arn" {
   description = "SQS queue which triggers the lambda function"
   type        = string
   default     = null
@@ -81,6 +87,7 @@ variable "cloudwatch_enabled" {
 
 variable "schedule_expression" {
   description = "Scheduling expression for triggering the Lambda Function using CloudWatch events. For example, cron(0 20 * * ? *) or rate(5 minutes)."
+  default     = null
 }
 
 variable "tags" {
