@@ -12,7 +12,7 @@ variable "visibility_timeout_seconds" {
 variable "message_retention_seconds" {
   description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)"
   type        = number
-  default     = 86400 
+  default     = 86400
 }
 
 variable "max_message_size" {
@@ -31,12 +31,6 @@ variable "receive_wait_time_seconds" {
   description = "The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)"
   type        = number
   default     = 10
-}
-
-variable "kms_data_key_reuse_period_seconds" {
-  description = "The length of time, in seconds, for which Amazon SQS can reuse a data key to encrypt or decrypt messages before calling AWS KMS again. An integer representing seconds, between 60 seconds (1 minute) and 86,400 seconds (24 hours)"
-  type        = number
-  default     = 300
 }
 
 variable "tags" {

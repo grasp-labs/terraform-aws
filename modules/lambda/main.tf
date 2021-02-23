@@ -137,3 +137,27 @@ resource "aws_iam_role_policy_attachment" "stream_policy_attachment" {
   role       = aws_iam_role.main.name
   policy_arn = aws_iam_policy.stream_policy[count.index].arn
 }
+
+# Hook lambda with event bridge
+resource "aws_cloudwatch_event_rule" "lambda" {
+  count               = var.cloudwatch_enabled ? 1 : 0
+  description         = "cloudwatch event rule for ${var.name}"
+  name                = "cloudwatch_event_rule_${var.name}"
+  schedule_expression = var.schedule_expression
+  tags                = var.tags
+}
+
+resource "aws_lambda_permission" "cloudwatch" {
+  count         = var.cloudwatch_enabled ? 1 : 0
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.main.function_name
+  principal     = "events.amazonaws.com"
+  source_arn    = aws_cloudwatch_event_rule.lambda[count.index].arn
+}
+
+resource "aws_cloudwatch_event_target" "lambda" {
+  count = var.cloudwatch_enabled ? 1 : 0
+  rule  = aws_cloudwatch_event_rule.lambda[count.index].name
+  arn   = aws_lambda_function.main.arn
+}
