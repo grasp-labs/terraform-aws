@@ -63,7 +63,7 @@ resource "aws_sqs_queue_policy" "_" {
       {
         "Action": "sqs:*",
         "Effect": "Allow",
-        "Resource": "${aws_sqs_queue.this.arn}",
+        "Resource": "${aws_sqs_queue.this.arn}"
       }
     ]
   }
