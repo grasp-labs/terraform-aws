@@ -164,7 +164,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 
 # Hook API Gateway
 module "api" {
-  count      = var.api_gateway_enabled ? 0 : 1
+  count      = var.api_gateway_enabled ? 1 : 0
   source     = "./api"
   name       = "api-${var.name}"
   method     = "ANY"
