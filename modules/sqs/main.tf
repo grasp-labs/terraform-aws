@@ -5,7 +5,6 @@ resource "aws_sqs_queue" "this" {
   max_message_size            = var.max_message_size
   delay_seconds               = var.delay_seconds
   receive_wait_time_seconds   = var.receive_wait_time_seconds
-  policy                      = var.policy
   content_based_deduplication = var.content_based_deduplication
 
   tags = var.tags

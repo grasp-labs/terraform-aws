@@ -12,13 +12,13 @@ variable "visibility_timeout_seconds" {
 variable "message_retention_seconds" {
   description = "The number of seconds Amazon SQS retains a message. Integer representing seconds, from 60 (1 minute) to 1209600 (14 days)"
   type        = number
-  default     = 345600
+  default     = 86400 
 }
 
 variable "max_message_size" {
   description = "The limit of how many bytes a message can contain before Amazon SQS rejects it. An integer from 1024 bytes (1 KiB) up to 262144 bytes (256 KiB)"
   type        = number
-  default     = 4096 
+  default     = 2048
 }
 
 variable "delay_seconds" {
@@ -30,19 +30,7 @@ variable "delay_seconds" {
 variable "receive_wait_time_seconds" {
   description = "The time for which a ReceiveMessage call will wait for a message to arrive (long polling) before returning. An integer from 0 to 20 (seconds)"
   type        = number
-  default     = 0
-}
-
-variable "policy" {
-  description = "The JSON policy for the SQS queue"
-  type        = string
-  default     = ""
-}
-
-variable "fifo_queue" {
-  description = "Boolean designating a FIFO queue"
-  type        = bool
-  default     = false
+  default     = 10
 }
 
 variable "kms_data_key_reuse_period_seconds" {
