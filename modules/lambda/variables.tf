@@ -90,6 +90,12 @@ variable "schedule_expression" {
   default     = null
 }
 
+variable "api_gateway_enabled" {
+  description = "Enable API gateway trigger"
+  type        = bool
+  default     = false
+}
+
 variable "tags" {
   default     = {}
   description = "Map of tags for Lambda function"
