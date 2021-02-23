@@ -2,8 +2,9 @@ data "aws_region" "current" {}
 data "aws_caller_identity" "current" {}
 
 locals {
-  full_name = "${var.name}-${var.env}"
-  environment_map = var.env_vars == null ? [] : [var.env_vars]
+  full_name       = "${var.name}-${var.env}"
+  environment_map = var.env_vars == null ? [] : [
+    var.env_vars]
 }
 
 # This is the IAM policy for letting lambda assume roles.
@@ -97,8 +98,42 @@ resource "aws_lambda_function" "main" {
   }
 }
 
+# Hook lambda with sqs event.
+
 resource "aws_lambda_event_source_mapping" "_" {
-  count = var.sqs_event == null ? 0 : 1
+  count            = var.sqs_event == null ? 0 : 1
   event_source_arn = var.sqs_event
   function_name    = aws_lambda_function.main.arn
+}
+
+data "aws_iam_policy_document" "stream_policy_document" {
+  count = var.sqs_event == null ? 0 : 1
+
+  statement {
+    actions = [
+      "sqs:ChangeMessageVisibility",
+      "sqs:ChangeMessageVisibilityBatch",
+      "sqs:DeleteMessage",
+      "sqs:DeleteMessageBatch",
+      "sqs:GetQueueAttributes",
+      "sqs:ReceiveMessage"
+    ]
+
+    resources = [
+      var.sqs_event
+    ]
+  }
+}
+
+resource "aws_iam_policy" "stream_policy" {
+  count       = var.sqs_event == null ? 0 : 1
+  name        = "${var.name}-queue-poller-${data.aws_region.current[count.index].name}"
+  description = "Gives permission to poll a SQS queue to ${var.name}."
+  policy      = data.aws_iam_policy_document.stream_policy_document[count.index].json
+}
+
+resource "aws_iam_role_policy_attachment" "stream_policy_attachment" {
+  count      = var.sqs_event == null ? 0 : 1
+  role       = aws_iam_role.main.name
+  policy_arn = aws_iam_policy.stream_policy[count.index].arn
 }
