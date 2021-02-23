@@ -161,3 +161,14 @@ resource "aws_cloudwatch_event_target" "lambda" {
   rule  = aws_cloudwatch_event_rule.lambda[count.index].name
   arn   = aws_lambda_function.main.arn
 }
+
+# Hook API Gateway
+module "api" {
+  source = "./api"
+  name       = "api-${var.name}"
+  method     = "ANY"
+  lambda     = aws_lambda_function.main.function_name
+  lambda_arn = aws_lambda_function.main.arn
+  account_id = data.aws_caller_identity.current.id
+  stage_name = var.env
+}
