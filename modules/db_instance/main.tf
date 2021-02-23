@@ -11,6 +11,13 @@ resource "aws_security_group" "_" {
   vpc_id      = var.vpc_id
   description = "Allow inbound traffic from the security groups."
   tags        = var.tags
+
+  ingress {
+    from_port = 5432
+    protocol  = "TCP"
+    cidr_blocks = ["0.0.0.0/0"]
+    to_port   = 5432
+  }
 }
 
 resource "aws_security_group_rule" "ingress_security_group" {
