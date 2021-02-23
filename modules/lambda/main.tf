@@ -127,7 +127,7 @@ data "aws_iam_policy_document" "stream_policy_document" {
 
 resource "aws_iam_policy" "stream_policy" {
   count       = var.sqs_event == null ? 0 : 1
-  name        = "${var.name}-queue-poller-${data.aws_region.current[count.index].name}"
+  name        = "${var.name}-queue-poller"
   description = "Gives permission to poll a SQS queue to ${var.name}."
   policy      = data.aws_iam_policy_document.stream_policy_document[count.index].json
 }
