@@ -11,13 +11,6 @@ resource "aws_security_group" "_" {
   vpc_id      = var.vpc_id
   description = "Allow inbound traffic from the security groups."
   tags        = var.tags
-
-  ingress {
-    from_port = 5432
-    protocol  = "TCP"
-    cidr_blocks = ["0.0.0.0/0"]
-    to_port   = 5432
-  }
 }
 
 resource "aws_security_group_rule" "ingress_security_group" {
@@ -28,6 +21,16 @@ resource "aws_security_group_rule" "ingress_security_group" {
   security_group_id        = aws_security_group._.id
   to_port                  = 5432
   type                     = "ingress"
+}
+
+resource "aws_security_group_rule" "http" {
+  from_port         = 0
+  protocol          = ""
+  cidr_blocks       = [
+    "0.0.0.0/0"]
+  to_port           = 0
+  type              = ""
+  security_group_id = aws_security_group._.id
 }
 
 resource "aws_db_instance" "this" {
@@ -41,7 +44,7 @@ resource "aws_db_instance" "this" {
   username       = var.admin_user
   password       = var.admin_password
 
-  publicly_accessible =  var.publicly_accessible
+  publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
 
   vpc_security_group_ids = [
