@@ -3,7 +3,7 @@ variable "role_name" {
 }
 
 variable "iam_role_policy_document_json" {
-  type = "string"
+  type = string
 
   description = "Valid JSON Policy String this can be constructed from terraform data.aws_iam_policy_document."
 }
