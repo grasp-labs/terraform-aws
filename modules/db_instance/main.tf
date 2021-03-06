@@ -25,7 +25,7 @@ resource "aws_security_group_rule" "ingress_security_group" {
 
 resource "aws_security_group_rule" "http" {
   from_port         = 0
-  protocol          = ""
+  protocol          = "tcp"
   cidr_blocks       = [
     "0.0.0.0/0"]
   to_port           = 0
