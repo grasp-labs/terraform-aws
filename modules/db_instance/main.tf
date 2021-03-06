@@ -29,7 +29,7 @@ resource "aws_security_group_rule" "http" {
   cidr_blocks       = [
     "0.0.0.0/0"]
   to_port           = 0
-  type              = ""
+  type              = "ingress"
   security_group_id = aws_security_group._.id
 }
 
