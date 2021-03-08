@@ -127,8 +127,8 @@ data "aws_iam_policy_document" "stream_policy_document" {
 
 resource "aws_iam_policy" "stream_policy" {
   count       = var.sqs_trigger_enabled ? 1 : 0
-  name        = "${var.name}-queue-poller"
-  description = "Gives permission to poll a SQS queue to ${var.name}."
+  name        = "${local.full_name}-queue-poller"
+  description = "Gives permission to poll a SQS queue to ${local.full_name}."
   policy      = data.aws_iam_policy_document.stream_policy_document[count.index].json
 }
 
