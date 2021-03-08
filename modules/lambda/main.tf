@@ -166,7 +166,7 @@ resource "aws_cloudwatch_event_target" "lambda" {
 module "api" {
   count      = var.api_gateway_enabled ? 1 : 0
   source     = "./api"
-  name       = "api-${var.name}"
+  name       = "api-${local.full_name}"
   method     = "ANY"
   lambda     = aws_lambda_function.main.function_name
   lambda_arn = aws_lambda_function.main.arn
