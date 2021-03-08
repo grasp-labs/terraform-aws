@@ -141,8 +141,8 @@ resource "aws_iam_role_policy_attachment" "stream_policy_attachment" {
 # Hook lambda with event bridge
 resource "aws_cloudwatch_event_rule" "lambda" {
   count               = var.cloudwatch_enabled ? 1 : 0
-  description         = "cloudwatch event rule for ${var.name}"
-  name                = "cloudwatch_event_rule_${var.name}"
+  description         = "cloudwatch event rule for ${local.full_name}"
+  name                = "cloudwatch_event_rule_${local.full_name}"
   schedule_expression = var.schedule_expression
   tags                = var.tags
 }
