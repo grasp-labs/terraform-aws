@@ -52,7 +52,7 @@ resource "aws_db_instance" "this" {
   username       = var.admin_user
   password       = var.admin_password
 
-  parameter_group_name = aws_db_parameter_group._.name
+  parameter_group_name = aws_db_parameter_group.pg.name
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
