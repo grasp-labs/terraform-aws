@@ -34,8 +34,8 @@ resource "aws_security_group_rule" "http" {
 }
 
 resource "aws_db_parameter_group" "pg" {
-  name = "pg-${var.db_name}"
-  family = "postgres12"
+  name        = "pg-${var.rds_identifier}"
+  family      = "postgres12"
   description = "Parameter group for ${var.rds_identifier}"
 
   tags = var.tags
