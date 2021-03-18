@@ -25,6 +25,11 @@ variable "db_name" {
   type        = string
 }
 
+variable "pg_name" {
+  description = "The name of the parameter group."
+  type        = string
+}
+
 variable "instance_class" {
   description = "The instance type of the RDS instance"
   type        = string
