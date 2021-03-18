@@ -33,6 +33,14 @@ resource "aws_security_group_rule" "http" {
   security_group_id = aws_security_group._.id
 }
 
+resource "aws_db_parameter_group" "pg" {
+  name = "pg-${var.rds_identifier}" 
+  family = "postgres12"
+  description = "Parameter group for ${var.rds_identifier}"
+
+  tags = var.tags
+}
+
 resource "aws_db_instance" "this" {
   identifier        = var.rds_identifier
   engine            = "postgres"
@@ -43,6 +51,8 @@ resource "aws_db_instance" "this" {
   name           = var.db_name
   username       = var.admin_user
   password       = var.admin_password
+
+  parameter_group_name = aws_db_parameter_group._.name
 
   publicly_accessible = var.publicly_accessible
   skip_final_snapshot = true
