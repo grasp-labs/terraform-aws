@@ -2,10 +2,6 @@ data "aws_availability_zones" "available" {
   state = "available"
 }
 
-locals {
-  id_name = lower(regex("[a-z]+", var.rds_identifier))
-}
-
 resource "aws_db_subnet_group" "default" {
   subnet_ids = var.subnet_ids
   tags       = var.tags
@@ -38,7 +34,7 @@ resource "aws_security_group_rule" "http" {
 }
 
 resource "aws_db_parameter_group" "pg" {
-  name = "pg-${local.id_name}"
+  name = "pg-${var.db_name}"
   family = "postgres12"
   description = "Parameter group for ${var.rds_identifier}"
 
@@ -46,7 +42,7 @@ resource "aws_db_parameter_group" "pg" {
 }
 
 resource "aws_db_instance" "this" {
-  identifier        = local.id_name
+  identifier        = var.rds_identifier
   engine            = "postgres"
   engine_version    = "12.4"
   allocated_storage = var.storage_size
