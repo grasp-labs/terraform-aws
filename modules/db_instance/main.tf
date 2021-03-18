@@ -3,7 +3,7 @@ data "aws_availability_zones" "available" {
 }
 
 locals {
-  id_name = regex("[a-z]+", var.rds_identifier)
+  id_name = lower(regex("[a-z]+", var.rds_identifier))
 }
 
 resource "aws_db_subnet_group" "default" {
