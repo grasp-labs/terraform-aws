@@ -12,3 +12,9 @@ variable "stack_name" {
     type = string
     description = "Unique Cloudformation stack name that wraps the SNS topic"
 }
+
+variable "tags" {
+  description = "A mapping of tags to assign to all resources"
+  type        = map(string)
+  default     = {}
+}
