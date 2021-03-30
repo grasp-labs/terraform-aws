@@ -7,7 +7,7 @@ data "template_file" "cloudformation_sns_stack" {
       ",",
       formatlist(
         "{ \"Endpoint\": \"%s\", \"Protocol\": \"email\"  }",
-        var.email_addresses
+        var.emails
       ),
     )
   }
