@@ -16,7 +16,7 @@ variable "rds_identifier" {
 
 variable "engine_version" {
   description = "The versiof of the database engine"
-  type        = String
+  type        = string
   default     = "12.4"  
 }
 
