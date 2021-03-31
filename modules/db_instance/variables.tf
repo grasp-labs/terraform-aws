@@ -14,6 +14,12 @@ variable "rds_identifier" {
   type        = string
 }
 
+variable "engine_version" {
+  description = "The versiof of the database engine"
+  type        = String
+  default     = "12.4"  
+}
+
 variable "storage_size" {
   description = "Allocated storage size for database instance."
   type = number

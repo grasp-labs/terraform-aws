@@ -44,7 +44,7 @@ resource "aws_db_parameter_group" "pg" {
 resource "aws_db_instance" "this" {
   identifier        = var.rds_identifier
   engine            = "postgres"
-  engine_version    = "12.4"
+  engine_version    = var.engine_version
   allocated_storage = var.storage_size
 
   instance_class = var.instance_class
