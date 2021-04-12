@@ -64,5 +64,5 @@ locals {
     secrets          = local.final_secrets_vars
   }
 
-  json_map = jsonencode(local.container_definition)
+  json = local.container_definition
 }
