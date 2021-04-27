@@ -43,7 +43,7 @@ resource "aws_globalaccelerator_endpoint_group" "http" {
 }
 
 resource "aws_globalaccelerator_endpoint_group" "https" {
-  count = var.http_enabled ? 1 : 0
+  count = var.https_enabled ? 1 : 0
   listener_arn = aws_globalaccelerator_listener.https[0].id
   health_check_interval_seconds = 10
   health_check_path = var.health_check_path
