@@ -44,6 +44,7 @@ variable "subnet_ids" {
 variable "certificate_arn" {
   description = "SSL Certificate"
   type        = string
+  default     = ""
 }
 
 variable "tags" {
