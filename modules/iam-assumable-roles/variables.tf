@@ -4,7 +4,7 @@ variable "role_name" {
 
 variable "description" {
   description = "Description for the role"
-  type = String
+  type = string
   default = ""
 }
 
