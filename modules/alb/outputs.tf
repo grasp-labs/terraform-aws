@@ -10,7 +10,7 @@ output "id" {
 
 output "http_target_group_arn" {
   description = "The ARN of the http target group."
-  value       = aws_alb_target_group.http[0].arn
+  value       = length(aws_alb_target_group.http) > 0 ? aws_alb_target_group.http[0].arn : null
 }
 
 output "https_target_group_arn" {
