@@ -1,6 +1,8 @@
 resource "aws_iam_role" "this" {
   name               = var.role_name
   assume_role_policy = var.iam_role_policy_document_json
+  description = var.description
+  tags = var.tags
 }
 
 resource "aws_iam_role_policy_attachment" "attachment" {

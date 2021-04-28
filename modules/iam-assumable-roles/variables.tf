@@ -2,6 +2,18 @@ variable "role_name" {
   description = "Role name"
 }
 
+variable "description" {
+  description = "Description for the role"
+  type = String
+  default = ""
+}
+
+variable "tags" {
+  description = "Tags for role."
+  type = map
+  default = {}
+}
+
 variable "iam_role_policy_document_json" {
   type = string
 
