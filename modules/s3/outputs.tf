@@ -5,7 +5,7 @@ output "bucket_id" {
 }
 
 output "bucket_arn" {
-    Type        = string
+    type        = string
     value       = aws_s3_bucket.default.arn
     description = "Bucket ARN"
 }
