@@ -1,5 +1,5 @@
 locals {
-  name = "${var.project}-${var.stage}-${var.name}"
+  name = "${var.project}-${var.name}-${var.stage}"
   attributes = concat(
   [
     {
