@@ -1,6 +1,6 @@
 variable "name" {
   description = "Name of the efs"
-  type = string
+  type        = string
 }
 
 variable "vpc_id" {
@@ -22,4 +22,10 @@ variable "access_points" {
   type        = map(map(map(any)))
   default     = {}
   description = "A map of the access points you would like in your EFS volume"
+}
+
+variable "tags" {
+  description = "Tags for efs resources"
+  type        = map
+  default     = {}
 }
