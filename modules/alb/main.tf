@@ -23,6 +23,7 @@ resource "aws_alb_target_group" "http" {
 
 resource "aws_alb_target_group" "https" {
   count       = var.https_enabled ? 1 :0
+  name        = "tg-${local.base_name}-https"
   port        = 443
   protocol    = "HTTPS"
   target_type = "ip"
