@@ -4,7 +4,7 @@ output "arn" {
 }
 
 output "access_point_arns" {
-  value       = { for arn in sort(var.access_points) : arn => aws_efs_access_point.default[arn].arn }
+  value       = aws_efs_access_point.default.*.arn
   description = "EFS AP ARNs"
 }
 
