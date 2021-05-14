@@ -73,5 +73,10 @@ resource "aws_efs_access_point" "default" {
     }
   }
 
-  tags = var.tags
+  tags = merge(
+    var.tags,
+    {
+      Name: var.access_points[count.index]
+    }
+  )
 }
