@@ -29,7 +29,7 @@ resource "aws_security_group_rule" "egress" {
   protocol          = "-1"
   cidr_blocks       = [
     "0.0.0.0/0"]
-  security_group_id = join("", aws_security_group.efs.id)
+  security_group_id = aws_security_group.efs.*.id
 }
 
 resource "aws_security_group" "efs" {
@@ -50,8 +50,7 @@ resource "aws_efs_mount_target" "default" {
   count           = length(var.subnets)
   file_system_id  = aws_efs_file_system.efs.id
   subnet_id       = var.subnets[count.index]
-  security_groups = [
-    join("", aws_security_group.efs.id)]
+  security_groups = aws_security_group.efs.*.id
 
 }
 

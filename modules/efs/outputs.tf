@@ -9,7 +9,7 @@ output "access_point_arns" {
 }
 
 output "access_point_ids" {
-  value       = { for id in sort(var.access_points) : id => aws_efs_access_point.default[id].id }
+  value       = aws_efs_access_point.default.*.id
   description = "EFS AP ids"
 }
 
