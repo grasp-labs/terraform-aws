@@ -19,9 +19,9 @@ variable "ingress_security_groups" {
 }
 
 variable "access_points" {
-  type        = map(map(map(any)))
-  default     = {}
-  description = "A map of the access points you would like in your EFS volume"
+  type        = list(string)
+  default     = []
+  description = "A list of the access points in your EFS volume"
 }
 
 variable "tags" {
