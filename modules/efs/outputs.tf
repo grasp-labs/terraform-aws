@@ -3,6 +3,11 @@ output "arn" {
   description = "EFS ARN"
 }
 
+output "id" {
+  description = "EFS ID"
+  value       = aws_efs_file_system.efs.id
+}
+
 output "access_point_arns" {
   value       = aws_efs_access_point.default.*.arn
   description = "EFS AP ARNs"
@@ -14,7 +19,8 @@ output "access_point_ids" {
 }
 
 output "mount_target_ids" {
-  value       = coalescelist(aws_efs_mount_target.default.*.id, [""])
+  value       = coalescelist(aws_efs_mount_target.default.*.id, [
+    ""])
   description = "List of EFS mount target IDs (one per Availability Zone)"
 }
 
