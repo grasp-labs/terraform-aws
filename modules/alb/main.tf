@@ -4,7 +4,7 @@ locals {
 
 resource "aws_alb_target_group" "http" {
   count       = var.http_enabled ? 1 :0
-  name        = substring("tg-${local.base_name}-http", 0 , 32)
+  name        = substr("tg-${local.base_name}-http", 0 , 32)
   port        = 80
   protocol    = "HTTP"
   target_type = "ip"
@@ -23,7 +23,7 @@ resource "aws_alb_target_group" "http" {
 
 resource "aws_alb_target_group" "https" {
   count       = var.https_enabled ? 1 :0
-  name        = substring("tg-${local.base_name}-https", 0, 32)
+  name        = substr("tg-${local.base_name}-https", 0, 32)
   port        = 443
   protocol    = "HTTPS"
   target_type = "ip"
