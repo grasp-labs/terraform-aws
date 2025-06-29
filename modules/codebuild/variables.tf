@@ -47,3 +47,9 @@ variable "environment_variables" {
   default     = {}
   description = "Environment variables to pass to the CodeBuild project"
 }
+
+variable "package_type" {
+  type        = string
+  default     = "ZIP"
+  description = "Type of build output artifact to create. If type is set to S3, valid values are NONE, ZIP"
+}

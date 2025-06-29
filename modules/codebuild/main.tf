@@ -71,7 +71,7 @@ resource "aws_codebuild_project" "this" {
     type      = "S3"
     location  = var.artifact_bucket
     path      = var.artifact_path
-    packaging = "ZIP"
+    packaging = var.package_type
   }
 
   environment {
